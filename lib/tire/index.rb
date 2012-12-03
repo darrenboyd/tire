@@ -376,7 +376,8 @@ module Tire
 
         if Configuration.logger.level.to_s == 'debug'
           body = if @response
-            MultiJson.encode( MultiJson.load(@response.body), :pretty => Configuration.pretty)
+            @response.body == '' ? '' :
+              MultiJson.encode( MultiJson.load(@response.body), :pretty => Configuration.pretty)
           else
             MultiJson.encode( MultiJson.load(error.message), :pretty => Configuration.pretty) rescue ''
           end
